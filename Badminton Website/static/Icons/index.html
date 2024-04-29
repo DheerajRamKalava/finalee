@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Booking</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<form action="/venues/{{venuename}}/book" method="post">
+
+  <label for="sports">Sports:</label>
+  <select id="sports" name="sports">
+    <option value="football">Football</option>
+    <option value="basketball">Basketball</option>
+    <option value="tennis">Tennis</option>
+  </select><br><br>
+  
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date"><br><br>
+  
+  <label for="Start-Time">Start Time:</label>
+  <select id="Start-Time" name="Start-Time">
+    <option value="t1">9 AM</option>
+    <option value="t2">10 AM</option>
+    <option value="t3">11 AM</option>
+  </select><br><br>
+  
+  <label for="Duration">Duration:</label>
+  <select id="Duration" name="Duration">
+    <option value="1hr">1 hour</option>
+    <option value="2hr">2 hours</option>
+  </select><br><br>
+  
+  <label for="court">Court:</label>
+  <select id="court" name="court">
+    <option value="court1">Court 1</option>
+    <option value="court2">Court 2</option>
+    <option value="court3">Court 3</option>
+  </select><br><br>
+  
+  <input type="submit" value="BOOK">
+</form> 
+
+</body>
+</html>

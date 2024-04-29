@@ -1,0 +1,28 @@
+{% extends 'Base.html' %}
+{% block title %}{{name}}{% endblock %}
+{% block css %}
+<style>
+.person{
+    color: black;
+    align-items: center;
+    position: relative;
+    top:50%;
+    padding: 2em 2em 2em 2em;
+    border-radius: 0.5em;
+    background-color: white;
+
+}
+img{
+    align-content: center;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class = "person">
+<img src="{{imgsrc}}" alt="{{name}}'s photo"><br>
+<p>NAME: {{name}}</p><br>
+<p>INSTITUTE ROLL NO.: {{instno}}</p><br>
+<p>BATCH: {{batch}}</p>
+</div>
+{% endblock %}

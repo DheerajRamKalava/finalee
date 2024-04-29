@@ -1,0 +1,33 @@
+{% extends 'Base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for("static", filename="css/home.css") }}">
+
+{% endblock %}
+
+{% block home %}
+<div id="image123">
+  <div class="typewriter">
+  {% if current_user.is_authenticated %}
+    <h1>You have Successfully Logged in</h1>
+  {% else %}
+    <h1>Login is Pending . . . </h1>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+ <div class = "whole">
+  <h2>Members: </h2>
+  <br>
+  <ul>
+      {% for i in members %}
+        <li><a href="/home/{{i.Instno}}">{{i.Name}}</a></li>
+      {% endfor %}
+      
+  </ul>
+</div>
+{% endblock %} 

@@ -1,0 +1,89 @@
+body{
+    margin-left: 0;
+    
+}
+h1 {
+    z-index: 2;
+    position: absolute;
+    top: 250px;
+    left: 23px;
+    color: white;
+}
+
+#image123{
+    position: relative;
+    width: 100vw ;
+    height: 120vh;
+    background-image: url(/static/Icons/background.jpg);
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    min-width: 600px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.whole {
+    font-size: 20px;
+    color: white;
+    width: 100%;
+    margin-top: 100px; 
+    margin-right: 10%;
+    margin-bottom: 100px;
+    padding: 5%;
+    outline: 0.25em solid white;
+    min-width: 0;
+    pre{
+        max-width: 100%;
+        overflow: auto;
+        white-space: wrap;
+    
+    }
+    h2{
+        color: white;
+        font-size:xx-large;
+        font-weight: bold;
+    }
+    ul {
+        list-style-type:circle; 
+        padding: 0;
+        li {
+            margin-bottom: 10px; 
+            a {
+                text-decoration: none; 
+                color: white; 
+                font-family:monospace;
+                transition: color 0.3s;
+            }
+            a:hover {
+                color: orange;
+            }
+        }
+    }
+
+}
+  
+.typewriter h1 {
+    overflow: hidden; 
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto; 
+    letter-spacing: .15em;
+    animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+    margin-top: 98px;
+    margin-left: 18px;
+}
+  
+@keyframes typing {
+    from { width: 0% }
+    to { width: 100% }
+}
+  
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+}
+  

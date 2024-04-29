@@ -1,0 +1,71 @@
+{% extends 'Base.html' %}
+
+{% block title %}Book{% endblock %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="{{ url_for("static", filename="css/base.css") }}"> -->
+<!-- <link rel="stylesheet" href="{{ url_for("static", filename="css/booking_page.css") }}"> -->
+<style>
+    body{
+        font-family: Arial;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    .book-button{
+        background-color: orange;
+        border-width: 2px;
+        border-radius: 6px;
+        color: white;
+        padding: 17px;
+    }
+    .book-button:hover{
+        opacity: 0.67;
+        border-width: 0;
+    }
+    .book-button:active{
+        opacity: 0.87;
+    }
+    .icon {
+        width: 50px;
+        height: 50px; 
+    }
+
+    .venicon{
+        width: 1500px;
+        height: 700px;
+    }
+
+    .eachsport{
+        display: inline-block;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div style="color: rgb(0, 0, 0);">
+    <h2>{{ venue.VenueName }}</h2> 
+    <p class="Venue">Venue: {{ venue.VenueName }}</p>
+    <img class = "venicon" src="{{ venue.VenueImageURL }}">
+    <p class="location">{{ venue.VenueAddress }}</p>
+    <p class="Blog">{{ venue.VenueBlog }}</p>
+    <p class="timings">{{ venue.FirstSlot }} to {{ venue.LastSlot }}</p>
+    <h5>Sports Available</h5>
+    {% for i in avail_sports %}
+    <div class="eachsport">
+       <!-- <p>{{ i.SportName }}</p> -->
+       <img class = "icon" src="{{ i.SportImageURL }}">
+    </div>
+       
+    {% endfor %}
+    <form action="/venues/{{venue.VenueName}}" method="post">
+        <input type="submit" value="BOOK">
+    </form>
+
+</div>
+{% endblock %} 
+
+
+

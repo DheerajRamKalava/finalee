@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+</head>
+<body>
+    <h2>Booking Confirmation</h2>
+    <ul>
+
+        {%if logs == [] %}
+            <p>No Recent Bookings</p>
+        {%endif%}
+        {% for log in logs %}
+            <p>You have successfully booked the following:</p>
+            <li>BookingTime: {{ BookingTimes[loop.index0] }}</li>
+            <li>Venue: {{ venues[loop.index0].VenueName }}</li>
+            <li>Sport: {{ sports[loop.index0].SportName }}</li>
+            <li>Date: {{ dates[loop.index0] }}</li>
+            <li>Start Time: {{ starts[loop.index0] }}</li>
+            <li>Duration: {{ durations[loop.index0] }}</li>
+            
+            <br>
+        {% endfor %}
+    </ul>
+    <!-- You can add more content or styling here -->
+</body>
+</html>
+
