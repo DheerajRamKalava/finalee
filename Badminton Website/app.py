@@ -38,7 +38,7 @@ admin.add_view(VenueView(Venue, db.session))
 admin.add_view(SportView(Sport,db.session))
 admin.add_view(LogView(BookingLog, db.session))
 admin.add_view(MemberView(Member,db.session))
-admin.add_link(MenuLink(name='Logout', url='/logout'))
+admin.add_link(MenuLink(name='Logout', url='/admin-logout'))
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -77,7 +77,16 @@ def adminregister():
 @login_required
 def logout():
     logout_user()
-    return redirect("/")
+    flash("User has successfully logged out","error")
+    return redirect(url_for("userlogin"))
+
+
+@app.route('/admin-logout')
+@login_required
+def adminlogout():
+    logout_user()
+    flash("Admin has successfully logged out","error")
+    return redirect(url_for("userlogin"))
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -115,6 +124,7 @@ def userregister():
                 db.session.add(new_user)
                 db.session.commit()
                 flash('User registered successfully. You can now log in.', 'success')
+                return redirect(url_for("userlogin"))
                 
     return render_template('Register.html',messages=get_flashed_messages())
 
@@ -142,13 +152,13 @@ def about_person(instno):
 
 @app.route("/venues/<venuename>", methods=['GET', 'POST'])
 def booking_page(venuename):
-    current_url = request.url
     venue = Venue.query.filter_by(VenueName=venuename).first()
     if request.method == "POST": 
         if current_user.is_authenticated:
-            return redirect(current_url + "/book")
+            return redirect(url_for("book_venue",venuename=venuename))
         else:
             flash("You have not Logged In","error")
+            return redirect(url_for("userlogin"))
     return render_template("Booking_page.html", venue=venue ,messages=get_flashed_messages(), avail_sports=venue.Sports)
 
 
@@ -192,8 +202,6 @@ def generate_available_slots(venue,sport,date):
 @app.route('/venues/<venuename>/book', methods=["GET","POST"])
 def book_venue(venuename):
     venue = Venue.query.filter_by(VenueName=venuename).first()
-    current_url = request.url
-    new_url = current_url.replace("/book","")
     
     # Handle form submission (POST request)
     if request.method == 'POST' and current_user.is_authenticated:
@@ -218,8 +226,7 @@ def book_venue(venuename):
 
         db.session.add(new_booking)
         db.session.commit()
-        flash("Booking was successful")
-        return redirect(new_url)
+        return redirect(url_for("record"))
 
     # Handle GET request
     elif request.method == "GET":
@@ -227,8 +234,8 @@ def book_venue(venuename):
     
     # Handle other request methods
     else:
-        flash("Invalid request method", "error")
-        return redirect(new_url)
+        flash("Login is pending", "error")
+        return redirect(url_for("userlogin"))
 
 @app.route('/venues/<venuename>/availability', methods=['GET'])
 def get_available_slots(venuename):
@@ -244,9 +251,6 @@ def get_available_slots(venuename):
         return jsonify({'availableSlots': available_slots})
 
     return jsonify({'error': 'Invalid parameters'}), 400
-
-from flask import render_template
-from flask_login import current_user, login_required
 
 @app.route("/records")
 def record():
