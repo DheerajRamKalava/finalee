@@ -53,24 +53,24 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/admin-register', methods=['GET', 'POST'])
-def adminregister():
-    if request.method == 'POST':
-        name = request.form['name']
-        username = request.form['username']
-        # Check if - username already exists
-        existing_user = User.query.filter_by(Username=username).first()
-        if existing_user:
-            flash('Username already exists. Please choose a different username.', 'error')
-        else: 
-            password = request.form['password']
-            hashedpassword = generate_password_hash(password)
-            new_user = User(Name=name, Username=username, HashedPassword=hashedpassword, is_admin=True)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Admin registered successfully. You can now log in.', 'success')
-            return redirect(url_for("userlogin"))
-    return render_template('AdminRegister.html')
+# @app.route('/admin-register', methods=['GET', 'POST'])
+# def adminregister():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         username = request.form['username']
+#         # Check if - username already exists
+#         existing_user = User.query.filter_by(Username=username).first()
+#         if existing_user:
+#             flash('Username already exists. Please choose a different username.', 'error')
+#         else: 
+#             password = request.form['password']
+#             hashedpassword = generate_password_hash(password)
+#             new_user = User(Name=name, Username=username, HashedPassword=hashedpassword, is_admin=True)
+#             db.session.add(new_user)
+#             db.session.commit()
+#             flash('Admin registered successfully. You can now log in.', 'success')
+#             return redirect(url_for("userlogin"))
+#     return render_template('AdminRegister.html')
 
 
 @app.route('/logout')

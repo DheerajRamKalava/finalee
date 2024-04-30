@@ -2,27 +2,32 @@
 {% block title %}{{name}}{% endblock %}
 {% block css %}
 <style>
-.person{
-    color: black;
-    align-items: center;
-    position: relative;
-    top:50%;
-    padding: 2em 2em 2em 2em;
-    border-radius: 0.5em;
-    background-color: white;
-
-}
-img{
-    align-content: center;
-}
-</style>
+    .person {
+        margin-top: 70px;
+        color: black;
+        text-align: center; /* Center align the content */
+        padding: 2em; /* Add padding for better spacing */
+        border-radius: 0.5em;
+        background-color: white;
+        width: 500px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+    
+    .person img {
+        width: 200px;
+        height: auto;
+        margin: 0 auto; /* Center align the image */
+        display: block; /* Ensure the image is block-level to apply margin auto */
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
 <div class = "person">
 <img src="{{imgsrc}}" alt="{{name}}'s photo"><br>
-<p>NAME: {{name}}</p><br>
-<p>INSTITUTE ROLL NO.: {{instno}}</p><br>
-<p>BATCH: {{batch}}</p>
+<p id = "name">{{name}}</p><br>
+<p id = :rollno>{{instno}}</p><br>
+<!-- <p id = "batch">{{batch}}</p> -->
 </div>
 {% endblock %}

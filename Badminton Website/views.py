@@ -19,7 +19,10 @@ allowed_image_extensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "
 
 class AdminIndexView2(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_admin
+        if current_user:  
+            return current_user.is_admin if hasattr(current_user, 'is_admin') else False
+        return False
+
 
     def inaccessible_callback(self, name, **kwargs):
         flash("Trespassers will be prosecuted :)","error")
