@@ -4,7 +4,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.menu import MenuLink
 from flask_admin.form.upload import FileUploadField
 from werkzeug.utils import secure_filename
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for,flash
 from werkzeug.security import generate_password_hash
 from wtforms import StringField
 from flask_login import current_user,logout_user
@@ -19,9 +19,10 @@ allowed_image_extensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "
 
 class AdminIndexView2(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated
+        return current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
+        flash("Trespassers will be prosecuted :)","error")
         return redirect(url_for('userlogin', next=request.url))
     
 
