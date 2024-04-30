@@ -11,7 +11,8 @@
     <ul  id = "UL">
 
         {%if logs == [] %}
-            <p>No Recent Bookings</p>
+            <p style="color:#fff;
+            font-size: 2em;">No Recent Bookings :(</p>
         {%endif%}
         {% for log in logs %}
             <li id = "time">Booked on: {{ BookingTimes[loop.index0] }}</li>
