@@ -1,5 +1,5 @@
 body {
-    background-image: url(/static/Icons/background.jpg);
+    background-image: url(/static/Icons/clear.jpg);
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
@@ -17,11 +17,7 @@ section {
     max-width: 100%;
 }
 
-/* label {
-    font-family: 'Poppins', sans-serif;
-    color: #000;
-    font-weight: 600;
-} */
+
 label {
     font-family: 'Poppins', sans-serif;
     color: #000;
@@ -30,33 +26,21 @@ label {
     text-align: center;
 }
 
-/* .login-box {
-    max-width: 400px;
-    background: #ff7200;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2em;
-    padding: 2em; 
-} */
-
 #searchbox{
     border-radius: 5px;
 }
 
 .login-box {
     position:relative;
-    width: 450px;
+    width: 456px;
     height: 450px;
-    /* max-width: 500px; Added max-width */
     background: #ff7200;
     border-radius: 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     align-items: center;
-    margin: 0em; /* Adjusted margin */
-    padding: 2em; /* Added padding for spacing */
+    margin: 0em; 
+    padding: 2em; 
 }
 
 h2 {

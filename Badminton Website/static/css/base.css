@@ -94,12 +94,12 @@ body {
 @media screen and (max-width: 1081px) {
     #navbar {
         margin: auto;
-        padding: 0 1em; /* Adjust padding for smaller screens */
+        padding: 0 1em; 
     }
 
     #menu {
-        display: none; /* Hide the menu items by default */
-        flex-direction: column; /* Arrange menu items vertically */
+        display: none;
+        flex-direction: column;
         position: absolute;
         top: 4em;
         left: 0;
@@ -111,7 +111,7 @@ body {
     }
 
     #menu a {
-        margin: 1em 0; /* Adjust spacing between menu items */
+        margin: 1em 0;
     }
 }
 

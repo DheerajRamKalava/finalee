@@ -228,11 +228,9 @@ def book_venue(venuename):
         db.session.commit()
         return redirect(url_for("record"))
 
-    # Handle GET request
     elif request.method == "GET":
         return render_template("Booking_form.html",venuename=venuename,avail_sports=venue.Sports)
     
-    # Handle other request methods
     else:
         flash("Login is pending", "error")
         return redirect(url_for("userlogin"))
@@ -263,12 +261,10 @@ def record():
     durations = []
     BookingTimes= []
 
-    # Iterate through booking logs
     for log in logs:
         venue = Venue.query.get(log.VenueID)
         sport = Sport.query.get(log.SportID)
         
-        # Append data to respective lists
         venues.append(venue)
         sports.append(sport)
         dates.append(log.Date)
@@ -276,6 +272,5 @@ def record():
         durations.append(log.Duration)
         BookingTimes.append(log.BookingTime)
 
-    # Pass data to the template
     return render_template("Records.html", logs=logs, venues=venues, sports=sports, dates=dates, starts=starts, durations=durations, BookingTimes=BookingTimes)
 

@@ -82,7 +82,6 @@ class VenueView(AdminModelView):
             filepath = os.path.join(os.getcwd(), "static/venues", form.image.data.filename)
             if os.path.exists(filepath):
                 os.remove(filepath)
-        # Remove the original image file if it exists and the venue is not being created 
 
     def on_model_delete(self, model):
         super().on_model_delete(model)
@@ -124,7 +123,6 @@ class SportView(AdminModelView):
             filepath = os.path.join(os.getcwd(), "static/sports", form.image.data.filename)
             if os.path.exists(filepath):
                 os.remove(filepath)
-        # Remove the original image file if it exists and the venue is not being created 
 
     def on_model_delete(self, model):
         super().on_model_delete(model)
@@ -177,7 +175,6 @@ class MemberView(AdminModelView):
             filepath = os.path.join(os.getcwd(), "static/members", form.image.data.filename)
             if os.path.exists(filepath):
                 os.remove(filepath)
-        # Remove the original image file if it exists and the venue is not being created 
 
     def on_model_delete(self, model):
         super().on_model_delete(model)

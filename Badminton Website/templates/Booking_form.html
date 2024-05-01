@@ -18,7 +18,7 @@
     </select><br><br>
 
     <label for="date" style="display: block;">Date:</label>
-    <input id="date" name="setTodaysDate" type="date" required><br><br>
+    <input type="date" id="date" name="date" required><br><br>
 
     <label for="duration" style="display: block;">Duration:</label>
     <select id="duration" name="duration" class="dropdown" required>
@@ -40,10 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const slotSelect = document.getElementById('time-slot');
   const venuename = "{{ venuename }}";
 
-  // Event listener for date input change
   dateInput.addEventListener('change', updateAvailableSlots);
 
-  // Event listeners for sport and court select change
   [sportSelect].forEach(select => {
     select.addEventListener('change', updateAvailableSlots);
   });
@@ -65,10 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function updateSlotOptions(slots) {
-    // Clear existing options
+
     slotSelect.innerHTML = '';
 
-    // Add new slot options
     slots.forEach(slot => {
       const option = document.createElement('option');
       option.text = slot;
@@ -77,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 var today = new Date().toISOString().split('T')[0];
-document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+document.getElementsByName("date")[0].setAttribute('min', today);
 </script>
 </body>
 </html>
