@@ -141,9 +141,9 @@ class SportView(AdminModelView):
 
 class LogView(AdminModelView):
     form_base_class = SecureForm
-    can_create = False
+    can_create = False # cannot create a new log
     can_delete = True
-    can_edit = False
+    can_edit = False # cannot edit any log
     can_view_details = True
     form_excluded_columns=["User","Venue","Sport"]
     column_list = ['BookingID', 'UserID', 'VenueID', 'SportID', 'Slot', 'Duration', 'Date']
