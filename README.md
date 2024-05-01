@@ -7,9 +7,9 @@ Team Members: <br>
 
 Contributions: <br>
 1.Simeon Kandan Sonar <br>
- Flask, SQLite3 database using flask sqlalchemy, Jinja templates with some css
+ Flask, SQLite3 database using flask sqlalchemy, Jinja templates with some css <br>
 2.Kalava Dheeraj Ram <br>
- Whole WWebsite html css, Records backend, Forms, Book availability share,database input share.
+ Whole Website html css, Records backend, Forms, Book availability share,database input share. <br>
 3.Gundamaraju Hemanth Kashyap <br>
  Venues, Booking page html css, database input, part of Flask admin.
 
