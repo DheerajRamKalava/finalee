@@ -18,7 +18,7 @@
     </select><br><br>
 
     <label for="date" style="display: block;">Date:</label>
-    <input type="date" id="date" name="date" required><br><br>
+    <input id="date" name="setTodaysDate" type="date" required><br><br>
 
     <label for="duration" style="display: block;">Duration:</label>
     <select id="duration" name="duration" class="dropdown" required>
@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
 </script>
 </body>
 </html>

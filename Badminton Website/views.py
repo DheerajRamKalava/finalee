@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired
 from flask_admin import AdminIndexView
 import os
 
-allowed_image_extensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "tiff", "ico", "psd", "hdr", "exr"]
+allowed_image_extensions = ["jpg","avif", "jpeg", "png", "gif", "bmp", "webp", "svg", "tiff", "ico", "psd", "hdr", "exr"]
 
 
 class AdminIndexView2(AdminIndexView):
