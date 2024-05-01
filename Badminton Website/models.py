@@ -54,7 +54,7 @@ class BookingLog(db.Model):
     Slot = db.Column(db.String(10),nullable=False)
     Duration = db.Column(db.String(5),nullable=False)
     Date = db.Column(db.String(20), nullable=False)
-    BookingTime = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone("Asia/Kolkata")))
+    BookingTime = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone("Asia/Kolkata")).replace(microsecond=0))
     # To keep a track of when booking took place
 
     User = db.relationship('User', backref='bookings', lazy=True)
