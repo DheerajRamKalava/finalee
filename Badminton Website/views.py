@@ -14,31 +14,38 @@ from wtforms.validators import DataRequired
 from flask_admin import AdminIndexView
 import os
 
+# All the views of Admin page
 allowed_image_extensions = ["jpg","avif", "jpeg", "png", "gif", "bmp", "webp", "svg", "tiff", "ico", "psd", "hdr", "exr"]
 
 
 class AdminIndexView2(AdminIndexView):
     def is_accessible(self):
+        # to take care of AnonymousUser
         if current_user:  
             return current_user.is_admin if hasattr(current_user, 'is_admin') else False
         return False
 
 
-    def inaccessible_callback(self, name, **kwargs):
+    def inaccessible_callback(self, name, **kwargs): # LOGIC ON UNAUTHORIZED ACCESs
         flash("Trespassers will be prosecuted :)","error")
         return redirect(url_for('userlogin', next=request.url))
     
 
-class AdminModelView(ModelView):
+class AdminModelView(ModelView): #extension of Modelview
     def is_accessible(self):
-        return current_user.is_authenticated
+        # to take care of AnonymousUser
+        if current_user:  
+            return current_user.is_admin if hasattr(current_user, 'is_admin') else False
+        return False
 
-    def inaccessible_callback(self, name, **kwargs):
+
+    def inaccessible_callback(self, name, **kwargs): # LOGIC ON UNAUTHORIZED ACCESs
+        flash("Trespassers will be prosecuted :)","error")
         return redirect(url_for('userlogin', next=request.url))
 
 
 class UserView(AdminModelView):
-    form_base_class = SecureForm
+    form_base_class = SecureForm # for csrf protection forms
     column_searchable_list = ["Name", "Username","is_admin"]
     column_filters = ["Name", "Username","is_admin"]
     form_excluded_columns = ["HashedPassword","bookings"]
@@ -48,7 +55,7 @@ class UserView(AdminModelView):
 
     def on_model_change(self, form, model, is_created):
         if is_created or 'Password' in form.data:
-            model.HashedPassword = generate_password_hash(form.Password.data)
+            model.HashedPassword = generate_password_hash(form.Password.data) # for hashing
 
 
 class VenueView(AdminModelView):
@@ -117,7 +124,7 @@ class SportView(AdminModelView):
 
         if 'image' in form.data:
             new_filename = self.generate_filename(model, form)
-            form.image.data.seek(0)
+            form.image.data.seek(0) # to prevent image correuption
             form.image.data.save(os.path.join(os.getcwd(), "static/sports", new_filename))
             model.SportImageURL = f"/static/sports/{new_filename}"
             filepath = os.path.join(os.getcwd(), "static/sports", form.image.data.filename)

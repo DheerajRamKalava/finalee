@@ -12,12 +12,15 @@ from sqlalchemy import desc
 
 
 app = Flask(__name__)
+# instance
 
 secret_key = os.urandom(48)
 app.config["SECRET_KEY"] = secret_key
+# protecting the app
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///finaleee.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///finaleee.db' # name of database
 db.init_app(app)
+# connecting app and database
 
 
 # with app.app_context():
@@ -31,7 +34,7 @@ db.init_app(app)
 
 app.config["FLASK_ADMIN_SWATCH"] = "cyborg"  # bootswatch theme
 
-
+# Views and Links in Flask_admin
 admin = Admin(app, name="Admin", template_mode="bootstrap4", index_view=AdminIndexView2(name='Home'))
 admin.add_view(UserView(User, db.session))
 admin.add_view(VenueView(Venue, db.session))
@@ -40,6 +43,7 @@ admin.add_view(LogView(BookingLog, db.session))
 admin.add_view(MemberView(Member,db.session))
 admin.add_link(MenuLink(name='Logout', url='/admin-logout'))
 
+#For Login Management
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -52,7 +56,7 @@ class UserLogin(UserMixin):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+#Admin Register may use later on
 # @app.route('/admin-register', methods=['GET', 'POST'])
 # def adminregister():
 #     if request.method == 'POST':
@@ -73,6 +77,7 @@ def load_user(user_id):
 #     return render_template('AdminRegister.html')
 
 
+#User Logout
 @app.route('/logout')
 @login_required
 def logout():
@@ -80,7 +85,7 @@ def logout():
     flash("User has successfully logged out","error")
     return redirect(url_for("userlogin"))
 
-
+#Admin Logout
 @app.route('/admin-logout')
 @login_required
 def adminlogout():
@@ -88,7 +93,7 @@ def adminlogout():
     flash("Admin has successfully logged out","error")
     return redirect(url_for("userlogin"))
 
-
+#For Login
 @app.route("/", methods=['GET', 'POST'])
 def userlogin():
     if request.method == 'POST':
@@ -104,7 +109,7 @@ def userlogin():
     return render_template("Index.html",messages=get_flashed_messages())
 
 
-
+#For Registration
 @app.route('/user-register', methods=['GET', 'POST'])
 def userregister():
     if request.method == 'POST':
@@ -129,27 +134,20 @@ def userregister():
     return render_template('Register.html',messages=get_flashed_messages())
 
 
-
+# For Venues page
 @app.route("/venues")
 def venue():
     venues = Venue.query.all()
     return render_template('Venues.html', venues=venues)
 
 
-
+# For Home page
 @app.route("/home")
 def home():
     members = Member.query.all()
     return render_template("Home.html", members=members)
 
-
-
-@app.route("/home/<int:instno>")
-def about_person(instno):
-    member = Member.query.filter_by(Instno = instno).first()
-    return render_template("About_person.html", name=member.Name, instno = instno, batch= member.Batch, imgsrc = member.MemImageURL)
-
-
+#Booking-Page
 @app.route("/venues/<venuename>", methods=['GET', 'POST'])
 def booking_page(venuename):
     venue = Venue.query.filter_by(VenueName=venuename).first()
@@ -161,7 +159,7 @@ def booking_page(venuename):
             return redirect(url_for("userlogin"))
     return render_template("Booking_page.html", venue=venue ,messages=get_flashed_messages(), avail_sports=venue.Sports)
 
-
+# to generate time slots based on venue first and last slot
 def generate_time_slots(venue):
     start_hour = venue.FirstSlot.hour
     end_hour = venue.LastSlot.hour
@@ -173,6 +171,7 @@ def generate_time_slots(venue):
         current_hour += 1
     return time_slots
 
+# Logic to fetch available slots for a given venue
 def generate_available_slots(venue,sport,date):
     existing_bookings = BookingLog.query.filter_by(VenueID=venue.VenueID,SportID=sport.SportID,Date=date).all()
     all_slots = generate_time_slots(venue)
@@ -198,7 +197,7 @@ def generate_available_slots(venue,sport,date):
     return avail_slots
 
 
-
+# Booking Form
 @app.route('/venues/<venuename>/book', methods=["GET","POST"])
 def book_venue(venuename):
     venue = Venue.query.filter_by(VenueName=venuename).first()
@@ -235,6 +234,7 @@ def book_venue(venuename):
         flash("Login is pending", "error")
         return redirect(url_for("userlogin"))
 
+# Route To Handle availability using json and javascript ajax
 @app.route('/venues/<venuename>/availability', methods=['GET'])
 def get_available_slots(venuename):
     date = request.args.get('date')
@@ -250,6 +250,7 @@ def get_available_slots(venuename):
 
     return jsonify({'error': 'Invalid parameters'}), 400
 
+# For Record to show all the booked records from BookingLog for a given user
 @app.route("/records")
 def record():
     logs = BookingLog.query.filter_by(UserID=current_user.get_id()).order_by(desc(BookingLog.BookingTime)).all()

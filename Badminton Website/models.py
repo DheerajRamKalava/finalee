@@ -7,6 +7,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+#Usermixin it will take some of the default features
 class User(UserMixin,db.Model):
     UserID = db.Column(db.Integer, primary_key=True, autoincrement = True)
     Name = db.Column(db.String(100), nullable=False)
@@ -26,6 +27,7 @@ class Venue(db.Model):
     VenueImageURL = db.Column(db.String(200))
     FirstSlot = db.Column(db.Time, nullable = False)
     LastSlot = db.Column(db.Time, nullable = False)
+    # many to one relationship
     Sports = db.relationship('Sport', secondary='venue_sport', backref= db.backref('venues', lazy='dynamic'))
     VenueBlog = db.Column(db.String(2000))
     def __str__(self):
@@ -53,7 +55,7 @@ class BookingLog(db.Model):
     Duration = db.Column(db.String(5),nullable=False)
     Date = db.Column(db.String(20), nullable=False)
     BookingTime = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone("Asia/Kolkata")))
-
+    # To keep a track of when booking took place
 
     User = db.relationship('User', backref='bookings', lazy=True)
     Venue = db.relationship('Venue', backref='bookings', lazy=True)
@@ -63,7 +65,7 @@ class BookingLog(db.Model):
     )
 
 
-
+# NOT USED to its full potential but may use when members increase
 class Member(db.Model):
     MemberId= db.Column(db.Integer, primary_key=True, autoincrement=True)
     Instno = db.Column(db.Integer, nullable = False, unique= True)
