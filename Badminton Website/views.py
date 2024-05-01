@@ -46,9 +46,9 @@ class AdminModelView(ModelView): #extension of Modelview
 
 class UserView(AdminModelView):
     form_base_class = SecureForm # for csrf protection forms
-    column_searchable_list = ["Name", "Username","is_admin"]
-    column_filters = ["Name", "Username","is_admin"]
-    form_excluded_columns = ["HashedPassword","bookings"]
+    column_searchable_list = ["Name", "Username","is_admin"] # for searching
+    column_filters = ["Name", "Username","is_admin"]# for filters
+    form_excluded_columns = ["HashedPassword","bookings"]#excluded attributes in forms
     form_extra_fields = {
         'Password': StringField('Password', validators=[DataRequired()])
     }
@@ -68,7 +68,7 @@ class VenueView(AdminModelView):
         'image': FileUploadField('Image', base_path="static/venues", allowed_extensions=allowed_image_extensions)
     }
     
-    def generate_filename(self, model, form):
+    def generate_filename(self, model, form): #for unique file name
         venue_name = model.VenueName
         filename = secure_filename(form.image.data.filename)
         unique_filename = f"{venue_name}_{filename}"
@@ -78,12 +78,12 @@ class VenueView(AdminModelView):
     def on_model_change(self, form, model, is_created):
         if model.VenueImageURL and not is_created:
             original_image_path = os.path.join(os.getcwd(), "static/venues", os.path.basename(model.VenueImageURL))
-            if os.path.exists(original_image_path):
+            if os.path.exists(original_image_path): # to remove image with original name
                 os.remove(original_image_path)
 
         if 'image' in form.data:
             new_filename = self.generate_filename(model, form)
-            form.image.data.seek(0)
+            form.image.data.seek(0) # to prevent corruption
             form.image.data.save(os.path.join(os.getcwd(), "static/venues", new_filename))
             model.VenueImageURL = f"/static/venues/{new_filename}"
             filepath = os.path.join(os.getcwd(), "static/venues", form.image.data.filename)
