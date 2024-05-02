@@ -63,16 +63,16 @@ h1 {
 img {
     width: 200px;
     height: auto;
-    margin: 0 auto; /* Center align the image */
-    display: block; /* Ensure the image is block-level to apply margin auto */
+    margin: 0 auto; 
+    display: block; 
 }
 li{
   list-style: none;
 }
 .bux {
       color: #fff;
-      text-align: center; /* Center align the content */
-      padding: 2em; /* Add padding for better spacing */
+      text-align: center;
+      padding: 2em;
       border-radius: 0.9em;
       background-color: #000;
       width: auto;
